@@ -25,8 +25,8 @@ three (x:xs) (y:ys) =
 main = do
     contents <- readFile "day_01.input"
     let xs = map (\x -> read x :: Int) (words contents)
-    --putStrLn "solution 1"
-    --print (count xs)
+    putStrLn "solution 1"
+    print (count xs)
     putStrLn "solution 2"
     print (three [] xs)
 
