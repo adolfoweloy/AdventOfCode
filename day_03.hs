@@ -77,7 +77,7 @@ co2GenRate xs sts    = bin $ filterCO2 xs sts
 
 filter' :: (Int -> Report -> Stats -> Bool) -> Int -> [Report] -> [Stats] -> Report
 filter' _ _ [x] _ = x
-filter' f pos rs (s:stats) = filter' f (pos+1) rs' stats
+filter' f pos rs (s:stats) = filter' f (pos+1) rs' (drop (pos+1) $ allStats rs')
   where
     rs' = filter (\r -> (f pos r s)) rs
 
