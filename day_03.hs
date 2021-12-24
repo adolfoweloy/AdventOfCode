@@ -24,7 +24,7 @@ type Stats = (Int, Int)
 type Report = [Int]
 
 strToIntArray :: String -> Report
-strToIntArray xs = map (\x -> digitToInt x) xs
+strToIntArray = map digitToInt 
 
 -- functions to capture the frequency of 1s and 0s
 frequency :: Report -> Stats -> Stats
@@ -40,10 +40,10 @@ increment :: Stats -> Int -> Stats
 increment (x,y) d = if d == 1 then (x+1,y) else (x,y+1)
 
 stats :: Report -> Stats
-stats xs = foldl increment statsIdentity xs
+stats = foldl increment statsIdentity
 
 allStats :: [Report] -> [Stats]
-allStats xs = map stats (transpose xs)
+allStats xs = map stats $ transpose xs
 
 
 -- calculating bit criteria which returns which bit to consider valid for a given position in a binary number
@@ -69,8 +69,8 @@ pCO2 :: Int -> Report -> Stats -> Bool
 pCO2 pos r s = bit == (bitCriteria s CO2)
   where bit = r !! pos
 
-filterOxygen xs sts  = filter' pOxygen 0 xs sts
-filterCO2    xs sts  = filter' pCO2 0 xs sts
+filterOxygen  = filter' pOxygen 0
+filterCO2     = filter' pCO2 0 
 
 oxygenGenRate xs sts = bin $ filterOxygen xs sts
 co2GenRate xs sts    = bin $ filterCO2 xs sts
@@ -81,7 +81,7 @@ filter' f pos rs (s:stats) = filter' f (pos+1) rs' (drop (pos+1) $ allStats rs')
   where
     rs' = filter (\r -> (f pos r s)) rs
 
-gammaRate stats   = bin $ map (\s -> if (fst s) > (snd s) then 1 else 0) stats
+gammaRate   stats = bin $ map (\s -> if (fst s) > (snd s) then 1 else 0) stats
 epsilonRate stats = bin $ map (\s -> if (fst s) < (snd s) then 1 else 0) stats
     
 
