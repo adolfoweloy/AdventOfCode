@@ -30,13 +30,18 @@ count (x:xs) = z : (count xs)
                       (Nothing) -> 0
 
 -- coding the second part
-
-
+prep [] = []
+prep (x:y:z:xs) = (Set.toList i') : (prep xs)
+  where x' = Set.fromList x
+        y' = Set.fromList y
+        z' = Set.fromList z 
+        i  = Set.intersection x' y'
+        i' = Set.intersection i z'
 
 
 -- just using composition (this back and forth is ridiculous :facepalm) 
 f = sum . count . mapToChar . backToList . mapSet . mapInters . parse
-
+g = sum . count . mapToChar . prep
 
 main = do
     contents <- readFile "day03.input"
@@ -46,4 +51,4 @@ main = do
     print (f xs)
 
     putStrLn "solution 2"
-    --print $ (sum . take 3) (f xs)
+    print (g xs)
