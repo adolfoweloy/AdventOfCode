@@ -1,6 +1,7 @@
 module Lib.Util
 (toInt,
  len,
+ isEmpty,
  toArray,
  toChar,
  indexOf,
@@ -17,6 +18,9 @@ len = foldl (\acc x -> acc + 1) 0
 
 toArray :: (a,a) -> [a]
 toArray (x,y) = [x, y]
+
+isEmpty :: [a] -> Bool
+isEmpty xs = if (len xs) == 0 then True else False
 
 toChar :: String -> Char
 toChar [] = ' '
